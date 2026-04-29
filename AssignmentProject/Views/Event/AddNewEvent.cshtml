@@ -1,0 +1,82 @@
+﻿
+@{
+    Layout = "_Layout";
+}
+@model CreateEventModel
+@{
+    ViewData["Title"] = "Add New Book";
+}
+<div class="container">
+    <h3 class="display-4">Add New Event</h3>
+    <hr />
+    @if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Congrats</strong> Added New Event. 
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+<form method="post" enctype="multipart/form-data" asp-action="AddNewEvent" asp-controller="Event">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="Date"></label>
+        <input asp-for="Date" class="form-control" />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Location"></label>
+        <input asp-for="Location" class="form-control" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StartTime"></label>
+        <input asp-for="StartTime" class="form-control" />
+        <span asp-validation-for="StartTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Type"></label>
+        <select asp-for="Type" class="form-control">
+            <option selected>Public</option>
+            <option>Private</option>
+        </select>
+        <span asp-validation-for="StartTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Duration"></label>
+
+        <textarea asp-for="Duration" class="form-control"></textarea>
+        <span asp-validation-for="Duration" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="OtherDetails"></label>
+
+        <textarea asp-for="OtherDetails" class="form-control"></textarea>
+        <span asp-validation-for="OtherDetails" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="InviteByEmail"></label>
+
+        <textarea asp-for="InviteByEmail" class="form-control"></textarea>
+        <span asp-validation-for="InviteByEmail" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add Book" class="btn btn-primary" />
+    </div>
+</form>
+</div>

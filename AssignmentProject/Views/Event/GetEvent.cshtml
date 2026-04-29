@@ -1,0 +1,119 @@
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<ApplicationUser> _signInManager
+@{
+    ViewData["Title"] = "GetEvent";
+}
+
+@model CreateEventModel
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Property</th>
+                <th scope="col">Value</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+
+                <td>Title</td>
+                <td>@Model.Title</td>
+
+            </tr>
+            <tr>
+
+                <td>Date</td>
+                <td>@Model.Date</td>
+
+            </tr>
+            <tr>
+
+                <td>Location</td>
+                <td>@Model.Location</td>
+
+            </tr>
+            <tr>
+
+                <td>Start Time</td>
+                <td>@Model.StartTime</td>
+
+            </tr>
+            @if (Model.Duration != null)
+            {
+                <tr>
+
+                    <td>Duration in Hours</td>
+                    <td>@Model.Duration</td>
+
+                </tr>
+            }
+            @if (Model.Description != null)
+            {
+                <tr>
+
+                    <td>Description</td>
+                    <td>@Model.Description</td>
+
+                </tr>
+
+            }
+            @if (Model.OtherDetails != null)
+            {
+                <tr>
+
+                    <td>Other Details</td>
+                    <td>@Model.OtherDetails</td>
+
+                </tr>
+            }
+            <tr>
+                <td>Total invited to event</td>
+                <td>@Model.TotalInvites</td>
+            </tr>
+
+        </tbody>
+    </table>
+    @if (_signInManager.IsSignedIn(User))
+    {
+        <div>
+            <form method="post" asp-action="GetEvent" asp-controller="Event">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div>
+                            <input required asp-for="Comments" value="" class="form-control" placeholder="Add comment" />
+                            <span asp-validation-for="Comments" value="" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" value="Add Comment" class="btn btn-primary float-md-left" />
+                    </div>
+                </div>
+            </form>
+        </div><br /><div>
+            <p><b>Comments</b></p>
+
+
+
+            @{
+                if (Model.Comments != null)
+                {
+                    if (Model.Comments.Contains(","))
+                    {
+                        List<string> tokens = Model.Comments.Split(',').ToList();
+                        foreach (var item in tokens)
+                        {
+                            <div>
+                                <small class="text-md-left">@item</small>
+                            </div>
+                        }
+                    }
+                }
+            }
+
+
+
+        </div>
+    }
+</div>
+

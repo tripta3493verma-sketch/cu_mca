@@ -1,0 +1,15 @@
+﻿@model IEnumerable<CreateEventModel>
+@{
+    ViewData["Title"] = "GetIvites";
+}
+
+<ol>
+    @foreach (var book in Model)
+    {
+        <li>
+            <a asp-controller="Event" asp-action="GetEvent" asp-route-id="@book.Id">@book.Title</a>
+        </li>
+    }
+
+</ol>
+

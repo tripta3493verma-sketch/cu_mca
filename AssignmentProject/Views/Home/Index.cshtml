@@ -1,0 +1,90 @@
+﻿
+@inject Microsoft.AspNetCore.Identity.SignInManager<ApplicationUser> _signInManager
+@{
+    ViewData["Title"] = "Home Page";
+
+}
+@model IEnumerable<CreateEventModel>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Past Events</h1>
+
+            <ol>
+                @if(_signInManager.IsSignedIn(User))
+                {
+
+                    @foreach (var events in Model)
+                    {
+                        @if (events.Date < DateTime.UtcNow.Date)
+                        {
+                            <li>
+                                <a asp-controller="Event" asp-action="GetEvent" asp-route-id="@events.Id">@events.Title</a>
+                            </li>
+                        }
+
+
+                    }
+                }
+                else
+                {
+                    @foreach (var events in Model)
+                    {
+                        @if (events.Type == "Public")
+                        {
+                            @if (events.Date < DateTime.UtcNow.Date)
+                            {
+                                <li>
+                                    <a asp-controller="Event" asp-action="GetEvent" asp-route-id="@events.Id">@events.Title</a>
+                                </li>
+                            }
+                        }
+
+
+
+                    }
+                }
+
+
+            </ol>
+        </div>
+        <div class="col">
+            <h1>Upcoming Events</h1>
+            <ol>
+                @if ((_signInManager.IsSignedIn(User)))
+                {
+
+                    @foreach (var events in Model)
+                    {
+                        @if (events.Date > DateTime.UtcNow.Date)
+                        {
+                            <li>
+                                <a asp-controller="Event" asp-action="GetEvent" asp-route-id="@events.Id">@events.Title</a>
+                            </li>
+                        }
+
+
+                    }
+                }
+                else
+                {
+                    @foreach (var events in Model)
+                    {
+                        @if (events.Type == "Public")
+                        {
+                            @if (events.Date > DateTime.UtcNow.Date)
+                            {
+                                <li>
+                                    <a asp-controller="Event" asp-action="GetEvent" asp-route-id="@events.Id">@events.Title</a>
+                                </li>
+                            }
+                        }
+                    }
+                }
+                </ol>
+           
+        </div>
+    </div>
+
+</div>
+

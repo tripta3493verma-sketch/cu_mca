@@ -1,0 +1,19 @@
+﻿@model IEnumerable<CreateEventModel>
+@{
+    ViewData["Title"] = "GetMyEvents";
+}
+<ol>
+    @foreach (var book in Model)
+    {
+    <li>
+        <a asp-controller="Event" asp-action="GetEvent" asp-route-id="@book.Id">@book.Title</a>
+        @if (book.Date > DateTime.UtcNow.Date)
+        {
+            <a class="float-md-right" asp-controller="Event" asp-action="EditEvent" asp-route-id="@book.Id"><small>Edit</small></a>
+        }
+
+    </li>
+     }
+
+</ol>
+
